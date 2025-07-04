@@ -6,18 +6,18 @@ from flask import Flask
 app = Flask(__name__)
 
 
-# 當使用者造訪 "/"，執行這個函式回傳內容
+# 當使用者造訪 "/"時，執行這個函式回傳內容
 @app.route('/')
 def index():
-    # 這個函式會在有人打開 / 網址時執行，並回傳文字：Hello from Flask!
+    # 這個函式會在有人打開 "/" 網址時執行，並回傳文字：Hello from Flask!
     return 'Hello from Flask!'
 
 
-# if __name__ == '__main__': # 只有直接執行這支程式時，才啟動伺服器
-# 這表示「只有當你直接執行這個 Python 檔案時，才會啟動 Flask 伺服器」。
+# if __name__ == '__main__' >>> # 只有直接執行這支程式時，才啟動伺服器
+# >>>>> 這表示「只有當你直接執行這個 Python 檔案時，才會啟動 Flask 伺服器」。
 if __name__ == '__main__':
 
-    # 直接執行時啟動伺服器，允許外部用 5000 埠連線
+    # 直接執行時才啟動伺服器，允許外部用 5000 埠連線
     # port=5000 指定使用 5000 埠號
     app.run(host='0.0.0.0', port=5000)
 
