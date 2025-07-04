@@ -42,7 +42,7 @@ db = SQLAlchemy(app) # 這行建立了一個 SQLAlchemy 的實例，並綁定到
 # 使用者資料表
 # 這是定義一個資料表模型 named = User。
 # 它繼承自 db.Model，代表 SQLAlchemy 會把這個 Python 類別對應成一張資料表。
-class User(db.Model):
+class User(db.Model): # <<< 這段class = 我定義一個叫User的模型，這個模型的內容繼受於db.Model這個模型。
     # 各欄位說明
     
     id = db.Column(db.Integer, primary_key=True) 
@@ -63,6 +63,7 @@ class User(db.Model):
 
 
 # 建立資料表（只需要第一次）
+# 這段程式是告訴 SQLAlchemy：「根據我定義的模型(看上面)，如果資料庫還沒有對應的資料表，就幫我建立出來。」
 with app.app_context():
     db.create_all()
 
@@ -70,19 +71,19 @@ with app.app_context():
 def home():
     return render_template('home.html')
 
-# 建立註冊頁路由
+# 建立註冊頁的路由
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
+        username = request.form['username'] # request.form 裡面的 username 裡面的資料
         password = request.form['password']
-        hashed_pw = generate_password_hash(password)
+        hashed_pw = generate_password_hash(password) # 加密密碼
 
-        new_user = User(username=username, password_hash=hashed_pw)
+        new_user = User(username=username, password_hash=hashed_pw) # 填入大U = User這張資料表
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect(url_for('home'))
+        return redirect(url_for('home')) # 完成後自動跳轉瀏覽器到home.html
 
     return render_template('register.html')
 
