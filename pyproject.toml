@@ -7,7 +7,10 @@ authors = ["Your Name <you@example.com>"]
 [tool.poetry.dependencies]
 python = ">=3.11.0,<3.12"
 flask = "^3.0.0"
+flask_sqlalchemy = "^3.1.1"
+flask_login = "^0.6.3"
 gunicorn = "^21.2.0"
+werkzeug = "^3.0.1"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
