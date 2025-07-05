@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JSON View</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        pre { background: #f4f4f4; padding: 10px; }
+        ul { list-style: none; padding: 0; }
+        li { padding: 5px 0; }
+    </style>
+</head>
+<body>
+
+    <h2>收到的原始資料</h2>
+    <pre>{{ raw_data }}</pre>
+
+    <h2>解析後的 key:value</h2>
+    <ul>
+        {% for key, value in parsed_dict.items() %}
+            <li><strong>{{ key }}</strong>: {{ value }}</li>
+        {% else %}
+            <li><em>目前沒有資料</em></li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
