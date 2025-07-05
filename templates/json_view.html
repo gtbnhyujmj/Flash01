@@ -1,26 +1,56 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>JSON View</title>
+    <meta charset="utf-8">  <!-- 設定網頁的編碼為 UTF-8，避免中文亂碼 -->
+    <title>JSON View</title>  <!-- 瀏覽器分頁上顯示的標題 -->
+
+    <!-- 頁面內嵌的 CSS 樣式，定義排版與背景顏色 -->
     <style>
-        body { font-family: sans-serif; padding: 20px; }
-        pre { background: #f4f4f4; padding: 10px; }
-        ul { list-style: none; padding: 0; }
-        li { padding: 5px 0; }
+        body { font-family: sans-serif; padding: 20px; }  /* 設定字體與內距 */
+        pre { background: #f4f4f4; padding: 10px; }       /* pre 格式化區塊的背景與內距 */
+        ul { list-style: none; padding: 0; }              /* 移除列表項目前的圓點與內距 */
+        li { padding: 5px 0; }                            /* 每個項目的上下內距 */
     </style>
+    
 </head>
+    
 <body>
 
+    <!-- 原始資料區（例如 GET 或 POST 傳進來的明碼字串） -->
+    
     <h2>收到的原始資料</h2>
+    
     <pre>{{ raw_data }}</pre>
+    <!-- 使用 <pre> 讓資料格式保留原樣（包含換行與縮排） -->
+    <!-- {{ raw_data }} 是 Flask 傳進來的變數，通常是 a=1&b=2 這類文字 -->
 
+    <!-- 將解析後的字典用「鍵值對列表」方式顯示出來 -->
     <h2>解析後的 key:value</h2>
+    
     <ul>
+        <!-- {% for ... %} {% else %} {% endfor %} -->
+        
+        <!-- 
+        這是 Jinja2 的一個語法糖：
+        如果 parsed_dict 裡有資料，就跑 for
+        如果是空的（完全沒有 key），就顯示 else 裡的東西 
+        -->
+        
+        <!--
+        parsed_dict.items()：
+        是後端用 parse_qs() 解析後的資料
+        -->
+        
         {% for key, value in parsed_dict.items() %}
+            
+            <!-- 每個 key/value 顯示成一行 -->
             <li><strong>{{ key }}</strong>: {{ value }}</li>
+        
         {% else %}
+            <!-- 如果 parsed_dict 是空的，就顯示這行 -->
             <li><em>目前沒有資料</em></li>
+        
         {% endfor %}
     </ul>
 
