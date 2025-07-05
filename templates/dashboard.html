@@ -1,10 +1,20 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>Dashboard</title>  <!-- 瀏覽器分頁上顯示的標題文字 -->
 </head>
+    
 <body>
+    <!-- 使用 Jinja2 語法插入變數 username，歡迎使用者 -->
+    
     <h2>歡迎 {{ username }}，你已成功登入。</h2>
+    <!-- 這一行的 {{ username }} 是從 Flask 傳進來的變數，例如 "小明" -->    
+    <!-- 如果你在後端寫的是 render_template('dashboard.html', username='小明')，
+    那這裡就會顯示「歡迎 小明，你已成功登入。」 -->
+
     <p>這是你的控制面板。</p>
+    <!-- 簡單的提示文字，表示這個頁面是登入後才看的到的內容 -->
+
 </body>
 </html>
