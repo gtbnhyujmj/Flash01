@@ -89,9 +89,13 @@ def register():
 
         return redirect(url_for('home')) # 完成後自動跳轉瀏覽器到home.html
     
+    # 這裡是if...else的結構，不過 >>> 
+    # 當 if 後會以 return 結束函式，就不需要寫 else，可以直接接在後面寫。
+    # = 電腦看到 return 會結束函式，所以他一定是最後一行。
+    return render_template('register.html')
     # 如果是用 GET 方法進來（例如點網址），就顯示註冊頁面的 HTML
     # 先點按鈕，所以先執行這行。然後填完資料，按按鈕，執行上面的if。
-    return render_template('register.html')
+
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)
