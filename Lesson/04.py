@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
-# Flask = 用來建立 Flask 應用程式的主體
-# request = 用來處理 HTTP 請求的物件
+# UserMixin = 給你的 User 模型加上 Flask-Login 需要的一些基本功能（例如是否已認證）。
+# login_user(user) = 呼叫後，使用者就會被視為「已登入」
+# login_required = 用來保護某些頁面，只有登入的人才能進入。
 
-# render_template = 用來顯示 HTML 模板，".HTML"檔案要放templates資料夾內(注意有"s")
-# redirect = 用來將使用者重新導向到另一個網址
-# url_for = 根據函式名稱自動產生 URL 路徑，可以避免硬編網址。
-
+# current_user = 代表目前已登入的使用者（類似 session 中的帳號）
 
 from flask_sqlalchemy import SQLAlchemy
 # SQLAlchemy = 用來處理資料庫操作的物件
@@ -95,6 +94,42 @@ def register():
     return render_template('register.html')
     # 如果是用 GET 方法進來（例如點網址），就顯示註冊頁面的 HTML
     # 先點按鈕，所以先執行這行。然後填完資料，按按鈕，執行上面的if。
+
+#=========================================================================================#
+
+# 登入頁的路由：使用者訪問 /login 頁面時，會執行這個函式
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # 如果是按下登入按鈕送出表單，就會是 POST 方法
+    if request.method == 'POST':
+        
+        # 從 HTML 表單中取得使用者輸入的帳號與密碼
+        username = request.form['username']
+        password = request.form['password']
+
+        # 根據使用者名稱去資料庫中查找第一筆符合的使用者資料
+        user = User.query.filter_by(username=username).first()
+
+        # 如果找不到這個使用者，就提示錯誤訊息，並重新顯示登入頁
+        if user is None:
+            flash('找不到使用者')  # flash 是用來顯示短暫訊息的功能
+            return render_template('login.html')  # 顯示登入頁面
+
+        # 如果使用者存在，就比對輸入的密碼與資料庫中儲存的加密密碼
+        if check_password_hash(user.password_hash, password):
+            # 密碼正確，就把使用者的資訊存進 session（這邊是手動方式）
+            session['user_id'] = user.id
+            session['username'] = user.username
+
+            # 登入成功後，導向到 dashboard（會員中心）頁面
+            return redirect(url_for('dashboard'))
+        else:
+            # 密碼錯誤，顯示錯誤訊息並重回登入頁
+            flash('密碼錯誤')
+            return render_template('login.html')
+
+    # 如果是用 GET 方法（直接點進來），就顯示登入頁
+    return render_template('login.html')
 
 
 if __name__ == '__main__':
