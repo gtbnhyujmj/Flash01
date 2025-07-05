@@ -74,24 +74,24 @@ def home():
 # 建立註冊頁的路由
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
+    if request.method == 'POST': # <<< 如果是提交表單（按下註冊按鈕）進來的，就是 POST 方法。
+        
+        # 從 HTML 表單中取得輸入的使用者名稱
         username = request.form['username'] # request.form 裡面的 username 裡面的資料
         password = request.form['password']
         hashed_pw = generate_password_hash(password) # 加密密碼
 
-        new_user = User(username=username, password_hash=hashed_pw) # 填入大U = User這張資料表
-        db.session.add(new_user)
-        db.session.commit()
+        # 建立一個新的 User 物件（也就是一筆新的使用者資料）
+        new_user = User(username=username, password_hash=hashed_pw) # 打包資料，對應User這張資料表的定義。
+        
+        db.session.add(new_user) # 將這筆新資料加到資料庫的交易（Session）中
+        db.session.commit() # 提交交易，把資料真的寫入資料庫
 
         return redirect(url_for('home')) # 完成後自動跳轉瀏覽器到home.html
-
+    
+    # 如果是用 GET 方法進來（例如點網址），就顯示註冊頁面的 HTML
+    # 先點按鈕，所以先執行這行。然後填完資料，按按鈕，執行上面的if。
     return render_template('register.html')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)
-
-  app.secret_key = 'verysecret'  # 隨便設一個 secret key
-
-  login_manager = LoginManager()
-  login_manager.init_app(app)
-  login_manager.login_view = 'login'  # 如果未登入會導去 login 頁
