@@ -212,6 +212,26 @@ def api_users():
 # jsonify() 是 Flask 提供的函數，會把 Python list/dict 轉成合法 JSON 格式回傳給前端或對方系統。
 
 #=========================================================================================#
+#=========================================================================================#
+
+# 建立一個路由 /init_add_accountid，當你打開這個網址時會執行一次性的資料表結構修改
+@app.route('/init_add_accountid')
+def init_add_accountid():
+    
+    # 使用 SQLAlchemy 提供的資料庫引擎連線方式
+    # 這邊是用低階方式連線並執行 SQL 指令（不是透過模型）
+    # 更專業的做法：使用「資料遷移工具」如 Flask-Migrate
+    
+    with db.engine.connect() as conn:
+        # 執行 SQL 指令，對 user 資料表新增一個欄位 accountID，型別為 INTEGER
+        # = ALTER TABLE user ADD COLUMN accountID INTEGER;
+        # 注意：這是直接操作資料庫，不會檢查欄位是否已經存在，執行過一次後就不能再執行
+        conn.execute(db.text("ALTER TABLE user ADD COLUMN accountID INTEGER"))
+
+    # 回傳簡單訊息到瀏覽器，表示已經執行完成
+    return "accountID 欄位已新增"
+
+#=========================================================================================#
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)
