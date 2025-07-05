@@ -2,10 +2,35 @@
 
 <html>
 <head>
-    <title>會員系統首頁</title>
+    <title>首頁</title>  <!-- 這是網頁在瀏覽器分頁顯示的標題 -->
 </head>
+    
 <body>
-    <h1>歡迎來到會員系統</h1>
-    <p><a href="/login">登入</a> 或 <a href="/register">註冊</a></p>
+    <h2>這是首頁</h2>  <!-- 首頁主標題，顯示在畫面上 -->
+
+    <!-- 段落文字 + 兩個超連結（註冊、登入） -->
+    
+    <p>
+        <!-- Flask 模板語法：url_for('register') 會產生 /register 的網址 -->
+        
+        <!-- 點擊這個連結會導向註冊頁面 -->
+        <a href="{{ url_for('register') }}">註冊</a> 
+        
+        <!-- 分隔線：| -->
+        |
+        
+        <!-- 點擊這個連結會導向登入頁面 -->
+        <a href="{{ url_for('login') }}">登入</a>
+    </p>
+    
 </body>
 </html>
+
+<!--
+{{ url_for('register') }} 是什麼？
+
+這是 Flask 的模板語法，會自動幫你產生網址路徑。
+= <a href="/register">註冊</a>
+
+但用 url_for() 的好處是：不怕將來路由改掉（比如 /user/register），程式會自動更新。
+-->
