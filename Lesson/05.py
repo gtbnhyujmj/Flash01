@@ -70,6 +70,8 @@ with app.app_context():
 def home():
     return render_template('home.html')
 
+#=========================================================================================#
+
 # 建立註冊頁的路由
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -131,6 +133,82 @@ def login():
     # 如果是用 GET 方法（直接點進來），就顯示登入頁
     return render_template('login.html')
 
+# session 是 Flask 內建的東西，用來暫時儲存某個使用者的狀態（例如是否登入）。資料會存在瀏覽器的 cookie 裡。
+# flash() 是 Flask 用來傳遞一次性訊息的方式，搭配模板可以顯示錯誤提示。
+
+#=========================================================================================#
+
+# 控制面板（登入後才能看到），路由網址為 /dashboard
+@app.route('/dashboard')
+def dashboard():
+    # 檢查 session 中是否有儲存 'username'，表示使用者已登入
+    if 'username' in session:
+        # 如果已登入，就顯示 dashboard.html，並傳入使用者名稱以便在畫面上顯示
+        return render_template('dashboard.html', username=session['username'])
+    else:
+        # 如果尚未登入（session 裡沒有 username），就導向到登入頁面
+        return redirect(url_for('login'))
+
+#=========================================================================================#
+#=========================================================================================#
+
+from flask import Flask, request, render_template_string
+from urllib.parse import parse_qs  # 用來解析明碼格式，例如：a=1&b=2
+
+# 工程師要求我直接用這個東西，串他的API，直接撈對方公司的資料
+@app.route("/json_view", methods=["GET", "POST"])
+def json_view():
+    raw_data = ""       # 儲存原始字串資料（明碼）
+    parsed_dict = {}    # 儲存解析後的字典資料
+
+    if request.method == "POST":
+        # 對方如果用 POST 發送資料，可能是 raw body 或 form 格式
+        raw_data = request.get_data(as_text=True)  # 把 raw body 抓下來轉成字串
+    elif request.method == "GET":
+        # 對方如果是 GET 方法，就從 query string 撈資料
+        raw_data = request.query_string.decode("utf-8")  # 取得 URL 中的參數，如 ?a=1&b=2
+
+    # 使用 urllib.parse_qs 將明碼解析為字典
+    # parse_qs 會把每個值包成 list（因為可能同個 key 有多個值）
+    parsed_qs = parse_qs(raw_data)
+
+    # 把每個值從 list 中取出（如果只有一個值就取出來；多值保留 list）
+    parsed_dict = {k: v[0] if len(v) == 1 else v for k, v in parsed_qs.items()}
+
+    # 建立 HTML 模板，顯示原始資料與解析後資料（用 JSON 格式顯示）
+    html_template = """
+    <h2>收到的原始資料：</h2>
+    <pre>{{ raw_data }}</pre>
+
+    <h2>解析後的 JSON 結構：</h2>
+    <pre>{{ parsed_dict | tojson(indent=2) }}</pre>
+    """
+
+    # 將資料渲染進 HTML 並顯示在網頁上
+    # 這裡的渲染函式選用: render_template_string (還記得render_template嗎?)
+    return render_template_string(html_template, raw_data=raw_data, parsed_dict=parsed_dict)
+
+#=========================================================================================#
+
+# 查看自家整個資料庫裡的使用者資料，回傳為 JSON 格式
+@app.route('/api/users', methods=['GET'])
+def api_users():
+    # 從資料庫中撈出所有使用者（使用 SQLAlchemy）
+    users = User.query.all()
+
+    # 建立一個 list，每個元素是使用者的資料字典
+    users_data = []
+    for user in users:
+        users_data.append({
+            'id': user.id,                     # 使用者編號
+            'username': user.username,         # 使用者帳號
+            'password_hash': user.password_hash  # 密碼雜湊值（不建議公開，但可給內部系統看）
+        })
+
+    # 回傳整個使用者清單，以 JSON 格式呈現
+    return jsonify(users_data)
+
+#=========================================================================================#
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)
