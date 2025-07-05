@@ -1,14 +1,45 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <title>註冊</title>
+    <title>註冊</title>  <!-- 網頁標題，會顯示在瀏覽器的分頁上 -->
 </head>
+    
 <body>
-    <h2>註冊帳號</h2>
+    <h2>註冊帳號</h2>  <!-- 頁面主標題 -->
+
+    <!-- 建立一個表單，method="POST" 表示資料會用 POST 方法送出到後端 -->
+    <!-- 預設送到目前網址，例如 /register -->
+    
     <form method="POST">
-        <label>使用者名稱：</label><input type="text" name="username" required><br>
-        <label>密碼：</label><input type="password" name="password" required><br>
+        
+        <!-- 使用者名稱的輸入欄位 -->
+        <label>使用者名稱：</label>  
+        <input type="text" name="username" required>  
+        
+        <!-- 
+            type="text"：輸入框類型是文字
+            name="username"：這是欄位名稱，會送到後端的 request.form['username']
+            required：這個欄位必填，不填會出現提示（HTML5驗證）
+        -->
+        
+        <br>  <!-- 換行 -->
+
+        <!-- 密碼的輸入欄位 -->
+        <label>密碼：</label>
+        <input type="password" name="password" required>  
+        
+        <!-- 
+            type="password"：輸入時會以點點顯示
+            name="password"：這是欄位名稱，會送到後端的 request.form['password']
+            required：這個欄位也必填
+        -->
+        
+        <br>  <!-- 換行 -->
+
+        <!-- 提交按鈕，按下會送出整個表單 -->
         <button type="submit">註冊</button>
     </form>
+
 </body>
 </html>
