@@ -24,3 +24,10 @@ def login():
             flash('帳號或密碼錯誤')
 
     return render_template('login.html')
+
+ 提醒：
+你也需要加上 from flask import flash, session。
+
+若你有 home.html，登入成功會轉到首頁；沒有的話可以改 return "Login OK" 測試用。
+
+flash() 需要你在 home.html 或 login.html 補上訊息顯示的區塊（要我補也可以）。
