@@ -1,0 +1,19 @@
+方法二：部署你的 Flask App（Deploy）
+點擊 Replit 左上角的「Deploy」
+
+選擇 "Web App"
+
+然後照步驟把你的 Flask 應用設定成常駐服務（永遠在線）
+
+部署完成後，你會有一個永久外部網址（像這樣）：
+
+arduino
+複製
+編輯
+https://your-flask-project.yourname.repl.co
+這樣就算你離線，工程師也可以透過這個網址呼叫你 /api/users 或 /fetch_external_user。
+
+ 建議你告訴工程師：
+如果你沒部署，他們暫時不能穩定連你那端資料
+
+如果需要讓他串接，你就要正式部署（用 Replit 的 deploy 功能，或搬到其他平台如 Railway、Render）
