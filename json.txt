@@ -1,0 +1,35 @@
+🔗 如何處理 JSON 傳來的 accountID？
+工程師會 POST 一個 JSON 給你，例如：
+
+json
+複製
+編輯
+{
+  "accountID": 3
+}
+你要加一個 API 路由去查資料庫裡有沒有這個使用者 ID，範例：
+
+python
+複製
+編輯
+from flask import jsonify
+
+@app.route('/api/check_user', methods=['POST'])
+def check_user():
+    data = request.get_json()
+    account_id = data.get('accountID')
+
+    user = User.query.filter_by(id=account_id).first()
+    if user:
+        return jsonify({"status": "found", "username": user.username})
+    else:
+        return jsonify({"status": "not_found"}), 404
+✅ 測試方式
+你可以用 curl 或 Postman 測：
+
+bash
+複製
+編輯
+curl -X POST http://localhost:5000/api/check_user \
+     -H "Content-Type: application/json" \
+     -d '{"accountID": 1}'
