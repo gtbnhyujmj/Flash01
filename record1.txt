@@ -1,0 +1,3 @@
+✅ Flask 是什麼？
+Flask 是一個 輕量級的 Python Web 應用框架，用來建立網站或 Web API。簡單來說，它可以讓你用 Python 很快速地建立一個網站伺服器。
+
