@@ -1,0 +1,44 @@
+✅ 二、Flask + Django 這兩天你應該掌握的重點對比整理
+主題	Flask	Django
+哲學理念	輕量、自由、自組裝	重結構、全家桶、開箱即用
+路由設定	使用 @app.route()	使用 urls.py 搭配 views.py
+ORM	SQLAlchemy（需安裝）	內建 ORM
+模板引擎	Jinja2	Django Template Language（類似 Jinja2）
+專案結構	自由安排	明確的專案/應用結構
+常見用途	小型應用、API、快速開發	中大型網站、管理後台、資料驅動系統
+
+
+✅ 三、你最近的學習摘要（含我輔導你的紀錄）
+🧠 Flask
+你已開始學習用 Flask 建會員系統。
+
+遇到過 Replit 上找不到 replit.nix，改用 pyproject.toml + Poetry 安裝套件。
+
+你開始理解 SQLALCHEMY_DATABASE_URI 是用來設定資料庫連線（URI ≠ URL，因為含有協定、帳密、host、DB 名稱等資訊）。
+
+🧠 Django
+想要幫自己整理整體流程圖（我現在這份就是）。
+
+目前還在摸 Django 架構，但已經有學會：
+
+怎麼跑 python manage.py runserver
+
+views.py 是邏輯處理、urls.py 是路由對應
+
+templates/ 是回傳 HTML 的地方
+
+未來要進一步學習模型 models.py、Admin 後台與資料庫操作
+
+如果你想要這份整理做成「圖解版」或 PDF，我也可以幫你畫圖或匯出，或加上提示字卡喔。
+
+你還想加上哪些學習內容？或我幫你畫圖先？
+
+
+
+
+
+
+
+
+
+詢問 ChatGPT
