@@ -1,0 +1,8 @@
+📁 your-flask-member-app/
+│
+├── main.py                  # 主程式
+├── users.db                 # SQLite 資料庫檔
+├── templates/
+│   ├── login.html           # 登入頁
+│   ├── register.html        # 註冊頁
+│   └── dashboard.html       # 會員中心
