@@ -1,0 +1,52 @@
+ 目前最新版 Replit 安裝 Python 套件的正確方式如下：
+✅ 方法：修改 replit.nix 檔案（Replit 的環境設定）
+✨ 步驟一步一步來（保證你照做就成功）：
+🔧 Step 1：在左側檔案區找到 replit.nix 檔案
+它通常在最下面
+
+點進去會看到像這樣：
+
+nix
+複製
+編輯
+{ pkgs }: {
+  deps = [
+    pkgs.python311Full
+    pkgs.pip
+  ];
+}
+🔧 Step 2：在 deps 陣列中加上 pkgs.python311Packages.flask_sqlalchemy
+修改後像這樣（新增一行）：
+
+nix
+複製
+編輯
+{ pkgs }: {
+  deps = [
+    pkgs.python311Full
+    pkgs.pip
+    pkgs.python311Packages.flask_sqlalchemy  # ✅ 這行是你加的
+  ];
+}
+🔃 Step 3：儲存檔案 → Replit 會自動重新建構環境（稍等幾十秒）
+你會看到右側 Console 顯示：
+
+nginx
+複製
+編輯
+Rebuilding environment...
+等它跑完，環境就已經裝好 flask_sqlalchemy，可以直接在 main.py 裡用：
+
+python
+複製
+編輯
+from flask_sqlalchemy import SQLAlchemy
+🧪 如何確認成功？
+在 main.py 的開頭加上這行測試：
+
+python
+複製
+編輯
+from flask_sqlalchemy import SQLAlchemy
+如果沒紅線、也沒錯誤訊息，就代表你成功了！
+
