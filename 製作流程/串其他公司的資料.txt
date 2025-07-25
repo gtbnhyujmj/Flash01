@@ -1,4 +1,7 @@
+串其他公司的資料
 整體製作流程（簡化版）
+
+===
 
 1. ✅ 設計使用者資料結構
 資料庫（如 SQLite、PostgreSQL）設計：
@@ -11,17 +14,24 @@ class User(db.Model):
     external_id = db.Column(db.String(128))  # 他公司傳來的使用者ID
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-2. 🔐 做會員註冊／登入系統
+===
+
+2. 🔐 做會員註冊／登入系統 ===> 複製@app.route('xxx')的資料
 使用 Flask-Login + werkzeug 做登入與密碼加密：
 
-註冊表單
-密碼雜湊存入資料庫
-登入驗證
-登入後導向會員中心（這裡就用你問的 URL redirect）
+根據資料庫的定義，寫出@app.route('xxx')後的定義。
+先前GPT設計出來的先複製頂著用。
 
-3. 🔗 串接外部公司資料（callback / webhook / API）
+註冊邏輯 >>>
+密碼雜湊存入資料庫 >>>
+
+登入邏輯 >>>>
+登入驗證 >>>>
+登入後導向會員中心（這裡就用你問的 URL redirect）。
+
+3. 🔗 串接外部公司資料（callback / webhook / API） ===> @app.route('xxx')
+
 這是你的重點：
-
 他公司會從他們系統POST JSON 或跳轉到你這邊附帶參數（例如 ?token=abc123）
 你要能驗證來源合法（加密簽名、白名單IP等）
 然後依照他們的資料幫助登入或註冊
@@ -34,9 +44,8 @@ json
   "username": "jiahong",
   "email": "jh@example.com"
 }
-你要處理這筆資料，自動註冊或登入，然後導頁（redirect）到使用者介面。
 
-4. 🧭 URL 跳轉應用
+你要處理這筆資料，自動註冊或登入，然後導頁（redirect）到使用者介面。
 這時 Flask redirect 就派上用場：
 
 @app.route('/external-login', methods=['POST'])
@@ -53,16 +62,26 @@ def external_login():
     login_user(user)
     return redirect(url_for('dashboard'))
 
-5. 🛡️ 安全設計與驗證
-使用 HTTPS
+===
 
-外部資料串接需驗證來源，避免被亂傳資料
-密碼雜湊儲存（使用 werkzeug.security 的 generate_password_hash）
-使用 Flask-Login 控制登入狀態與保護路由
+5. 🛡️ 安全設計與驗證 ====> 資安 先不管。
 
-6. 🖥️ 建基本前端介面（或提供 API）
+> 使用 HTTPS
+> 外部資料串接需驗證來源，避免被亂傳資料
+> 密碼雜湊儲存（使用 werkzeug.security 的 generate_password_hash）
+> 使用 Flask-Login 控制登入狀態與保護路由
+
+6. 🖥️ 建基本前端介面（或提供 API）===> .html
+
+# 寫個.html，把@app.route('xxx')處理好的東西，渲染到.html上。
+
 基本會員介面如：
-註冊 / 登入表單
-個人資料頁
-登出功能
-或改成純 API 模式，前端由別人處理（提供 JSON 接口）
+> 註冊表單 =>>> 第二點
+> 登入表單
+> 個人資料頁 dashboard
+> 登出功能
+
+>> 或改成純 API 模式，
+>> 前端由別人處理（提供 JSON 接口）。
+>> 咱現在不會
+>> 另檔處理。
