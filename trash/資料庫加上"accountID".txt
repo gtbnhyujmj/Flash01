@@ -4,38 +4,32 @@
 ✅ 接下來更新你的模型 User 類別，加上 accountID
 請在 User 類別中加這一行（順序不限）：
 
-python
-複製
-編輯
 accountID = db.Column(db.Integer)
+
+===
+
 完整如下：
 
-python
-複製
-編輯
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True) 
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
     accountID = db.Column(db.Integer)  # 新增的欄位（非唯一、可為空）
+
+===
+
 ✅ 使用方式
+
 之後你可以這樣塞資料：
-
-python
-複製
-編輯
 new_user = User(username='56789', password_hash='xxx', accountID=12345)
-或查資料：
 
-python
-複製
-編輯
+或查資料：
 user = User.query.filter_by(accountID=12345).first()
-✅ 結論
-你現在可以：
+
+===
+
+✅ 結論 >>> 你現在可以：
 
 接工程師的 JSON {"accountID": 12345}
-
 去你的資料庫用 .filter_by(accountID=12345) 找對應使用者
-
 全部準備就緒 ✅
