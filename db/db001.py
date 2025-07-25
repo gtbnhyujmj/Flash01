@@ -12,4 +12,3 @@ class User(db.Model):
     
     # 這個帳號創造的時間註記
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-  
