@@ -1,20 +1,16 @@
 🎯 建議使用的 Flask 套件
-功能	套件
-登入管理	Flask-Login
-表單驗證	Flask-WTF
-密碼加密	werkzeug.security
-資料庫 ORM	Flask-SQLAlchemy
-外部請求串接	requests（接或發 API）
+功能	         套件
+登入管理	       Flask-Login
+表單驗證	       Flask-WTF
+密碼加密	       werkzeug.security
+資料庫 ORM	     Flask-SQLAlchemy
+外部請求串接	   requests（接或發 API）
 
 🧠 小總結：你工程師的目的
-他可能要你：
+🧠 他可能要你：
 
 理解怎麼處理外部傳來的會員資料
-
 建立登入系統讓「其他公司」的用戶無縫登入你這邊
-
 做 URL redirect 來完成登入成功後自動跳轉
 
 或讓你接手寫某一段串接邏輯（通常就是 /external-login 這種 endpoint）
-
-如果你願意，我可以直接幫你搭一個簡單雛型 Flask 專案架構，或用 Colab、GitHub、Replit 都可以操作。
