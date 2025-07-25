@@ -73,15 +73,14 @@ def external_login():
 
 6. 🖥️ 建基本前端介面（或提供 API）===> .html
 
-# 寫個.html，把@app.route('xxx')處理好的東西，渲染到.html上。
+# 寫個".html"，把"@app.route('xxx')"處理好的東西，渲染到.html上。
 
 基本會員介面如：
-> 註冊表單 =>>> 第二點
-> 登入表單
-> 個人資料頁 dashboard
-> 登出功能
+> 註冊表單.html
+> 登入表單.html
+> 個人資料頁 dashboard.html
+> 登出功能.html
 
 >> 或改成純 API 模式，
 >> 前端由別人處理（提供 JSON 接口）。
->> 咱現在不會
->> 另檔處理。
+>> 咱現在不會 >> 另檔處理。
