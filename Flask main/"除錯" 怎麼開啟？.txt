@@ -1,8 +1,5 @@
 第一步：開啟 Debug 模式
 在你的 main.py 最下方加上：
 
-python
-複製
-編輯
 if __name__ == "__main__":
     app.run(debug=True)
