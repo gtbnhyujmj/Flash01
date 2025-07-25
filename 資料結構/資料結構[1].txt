@@ -1,4 +1,4 @@
-📁 your-flask-member-app/
+📁 your-flask-app/
 │
 ├── main.py                  # 主程式
 ├── users.db                 # SQLite 資料庫檔
