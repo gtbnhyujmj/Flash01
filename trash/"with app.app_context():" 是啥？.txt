@@ -1,38 +1,36 @@
-這段程式碼是用 Flask-SQLAlchemy 建立一個資料表模型，代表一個叫做 User 的資料表。讓我們一行一行來看它的意思：
+這段程式碼是用 Flask-SQLAlchemy 建立一個資料表模型，代表一個叫做 User 的資料表。
+讓我們一行一行來看它的意思：
 
-🔸 整體結構
-python
-複製
-編輯
+整體結構
+
 class User(db.Model):
-✅ 意思：
+
+意思：
 這是定義一個資料表模型 User，它繼承自 db.Model，代表 SQLAlchemy 會把這個 Python 類別對應成一張資料表。
-
 類別名稱 User 會預設對應到資料表名稱 user（可以自訂）。
-
 裡面的屬性會對應到資料表的欄位。
 
+===
 
-🔸 為什麼要 with app.app_context():？
+為什麼要 with app.app_context():？
 Flask 是個有「應用上下文（Application Context）」的框架。
-
 在某些操作（像 db.create_all()）中，SQLAlchemy 需要知道是哪一個 Flask app。
-
 app.app_context() 會暫時啟動這個 app 的上下文，讓操作可以正常執行。
-
 沒有這個的話，會出錯（像是：「Working outside of application context」）。
 
-🔸 db.create_all() 是什麼？
+===
+
+db.create_all() 是什麼？
 這是 SQLAlchemy 提供的方法，用來：
 
-✅ 自動在資料庫中建立所有模型類別（例如 User）對應的資料表
-
+自動在資料庫中建立所有模型類別（例如 User）對應的資料表
 它會根據你定義的模型類別（class User(db.Model)）產生對應的 SQL 語法去建立資料表。
-
 只會建立不存在的資料表，不會刪除或改動已存在的。
 
+===
 
 🧠 小提醒：
-如果你日後有 新增欄位或修改資料表結構，不能再用 create_all()，因為它不會更新現有表。那時候建議用：
+如果你日後有新增欄位或修改資料表結構，不能再用 create_all()，因為它不會更新現有表。
 
+那時候建議用：
 Flask-Migrate（用 Alembic 做資料庫遷移）
