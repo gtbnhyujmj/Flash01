@@ -8,7 +8,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 # current_user = 代表目前已登入的使用者（類似 session 中的帳號）
 
 from flask_sqlalchemy import SQLAlchemy
-# SQLAlchemy = 用來處理資料庫操作的物件
+# SQLAlchemy = 用來處理資料庫操作的
 
 
 # Werkzeug 是一個提供 WSGI 支援的 Python 庫
@@ -21,10 +21,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # Flask實體
 app = Flask(__name__)
 
+===
 
 # 設定 SQLite 資料庫路徑
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-db = SQLAlchemy(app) # 這行建立了一個 SQLAlchemy 的實例，並綁定到這個 Flask 實例(名稱 = app) 上。
+db = SQLAlchemy(app) # 這行建立了一個 SQLAlchemy 的實例，並綁定到這個 Flask 實例 (名稱 = app) 上。
 
 # 解釋：
 # app.config 是 Flask 應用的設定字典，你可以在裡面加入各種設定。
@@ -37,6 +38,7 @@ db = SQLAlchemy(app) # 這行建立了一個 SQLAlchemy 的實例，並綁定到
 # ///users.db 表示資料庫檔案在目前目錄下，叫做 users.db。
 # 會產生一個db在 /instance/users.db，但是不要打instance，會掛掉。
 
+===
 
 # 使用者資料表
 # 這是定義一個資料表模型 named = User。
@@ -60,15 +62,20 @@ class User(db.Model): # <<< 這段class = 我定義一個叫User的模型，這�
     # db.String(128): 儲存長度最多 128 的字串
     # nullable=False: 必填欄位
 
+===
 
 # 建立資料表（只需要第一次）
 # 這段程式是告訴 SQLAlchemy：「根據我定義的模型(看上面)，如果資料庫還沒有對應的資料表，就幫我建立出來。」
 with app.app_context():
     db.create_all()
 
+===
+
 @app.route('/')
 def home():
     return render_template('home.html')
+
+===
 
 # 建立註冊頁的路由
 @app.route('/register', methods=['GET', 'POST'])
@@ -131,6 +138,7 @@ def login():
     # 如果是用 GET 方法（直接點進來），就顯示登入頁
     return render_template('login.html')
 
+===
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)
