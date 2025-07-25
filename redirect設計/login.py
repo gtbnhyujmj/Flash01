@@ -15,7 +15,8 @@ def login():
             
             # 登入成功，建立 session（或整合 flask-login）
             session['user_id'] = user.id
-            
+
+            # flash() 需要在 login.html 補上訊息顯示的區塊 = {% msg %}{% end %}。
             flash('登入成功')
 
             # 若你有 home.html，登入成功會轉到首頁；沒有的話可以改 return "Login OK" 測試用。
