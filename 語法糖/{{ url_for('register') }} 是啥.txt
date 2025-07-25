@@ -1,0 +1,8 @@
+<!--
+{{ url_for('register') }} 是什麼？
+
+這是 Flask 的模板語法，會自動幫你產生網址路徑。
+= <a href="/register">註冊</a>
+
+但用 url_for() 的好處是：不怕將來路由改掉（比如 /user/register），程式會自動更新。
+-->
