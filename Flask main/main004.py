@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 # Flask = 用來建立 Flask 應用程式的主體
 # request = 用來處理 HTTP 請求的物件
 
-# render_template = 用來顯示 HTML 模板，".HTML"檔案要放templates資料夾內(注意有"s")
+# render_template = 用來顯示 HTML 模板，".HTML"檔案要放templates資料夾內 (注意有"s")
 # redirect = 用來將使用者重新導向到另一個網址
 # url_for = 根據函式名稱自動產生 URL 路徑，可以避免硬編網址。
 
@@ -19,13 +19,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # check_password_hash = 用來檢查密碼是否正確
 
 
-# Flask實體
+# Flask實體 = 物件化
 app = Flask(__name__)
 
+===
 
 # 設定 SQLite 資料庫路徑
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-db = SQLAlchemy(app) # 這行建立了一個 SQLAlchemy 的實例，並綁定到這個 Flask 實例(名稱 = app) 上。
+db = SQLAlchemy(app) # 這行建立了一個 SQLAlchemy 的實例，並綁定到某個 Flask 實例(名稱 = app)上。   # 雙重物件化: 某個物件綁定某個物件???
 
 # 解釋：
 # app.config 是 Flask 應用的設定字典，你可以在裡面加入各種設定。
@@ -38,6 +39,7 @@ db = SQLAlchemy(app) # 這行建立了一個 SQLAlchemy 的實例，並綁定到
 # ///users.db 表示資料庫檔案在目前目錄下，叫做 users.db。
 # 會產生一個db在 /instance/users.db，但是不要打instance，會掛掉。
 
+===
 
 # 使用者資料表
 # 這是定義一個資料表模型 named = User。
@@ -67,6 +69,8 @@ class User(db.Model): # <<< 這段class = 我定義一個叫User的模型，這�
 with app.app_context():
     db.create_all()
 
+===
+
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -90,12 +94,14 @@ def register():
         return redirect(url_for('home')) # 完成後自動跳轉瀏覽器到home.html
     
     # 這裡是if...else的結構，不過 >>> 
-    # 當 if 後會以 return 結束函式，就不需要寫 else，可以直接接在後面寫。
-    # = 電腦看到 return 會結束函式，所以他一定是最後一行。
+    # 當 if 後，以 return 結束函式，就不需要寫 else，可以直接接在後面寫。
+    # => 電腦看到 return 會結束函式，所以他一定是最後一行。
+    # 那就不用特地寫else了。
     return render_template('register.html')
     # 如果是用 GET 方法進來（例如點網址），就顯示註冊頁面的 HTML
     # 先點按鈕，所以先執行這行。然後填完資料，按按鈕，執行上面的if。
 
+===
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)
