@@ -21,8 +21,9 @@ if __name__ == '__main__':
     # port=5000 指定使用 5000 埠號
     app.run(host='0.0.0.0', port=5000)
 
-# 🧠總結流程圖
-# Flask 應用啟動。
-# 有人連到 / 網址。
-# Flask 呼叫 index() 函式。
+# 總結流程圖:
+
+# Flask 應用啟動 >>>
+# 有人連到 "/" 網址 >>>
+# Flask 會呼叫 index() 函式 >>>
 # 回傳「Hello from Flask!」文字給使用者的瀏覽器。
