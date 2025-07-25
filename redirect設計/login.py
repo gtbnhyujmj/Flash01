@@ -17,9 +17,11 @@ def login():
             session['user_id'] = user.id
             
             flash('登入成功')
+
+            # 若你有 home.html，登入成功會轉到首頁；沒有的話可以改 return "Login OK" 測試用。
             return redirect(url_for('home'))
         else:
             flash('帳號或密碼錯誤')
 
     return render_template('login.html')
-  
+    
