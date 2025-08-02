@@ -1,0 +1,8 @@
+為什麼叫「URI」而不是「URL」？
+
+雖然看起來像 URL，但實際上更廣義地說，它是「URI」。
+URI（Uniform Resource Identifier） 是一種「識別資源」的方式。
+URL（Uniform Resource Locator） 是 URI 的一種，特別用來「定位位置」的。
+
+它被稱為 URI 是因為它不只是一個位置（URL），還包含了認證、協定等資訊，符合 URI 更廣義的定義。
+實際上，Flask-SQLAlchemy 就是依據這個 URI 來建立 SQLAlchemy 的引擎。
